@@ -1,0 +1,36 @@
+[project]
+name = "svg-gem"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Hsinpa", email = "hsinpa@gmail.com" }
+]
+dependencies = [
+    "pillow>=11.0.0",
+    "fastapi>=0.115.2",
+    "langchain>=0.3.3",
+    "uvicorn>=0.32.0",
+    "langgraph>=0.2.38",
+    "langfuse>=2.52.1",
+    "python-dotenv>=1.0.1",
+    "langchain-google-vertexai>=2.0.5",
+    "langchain-openai>=0.2.3",
+    "langchain-together>=0.2.0",
+    "langchain-anthropic>=0.2.3",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/svg_gem"]
