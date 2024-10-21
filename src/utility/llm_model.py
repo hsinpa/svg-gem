@@ -15,6 +15,7 @@ OpenAI_Model_4o_mini = 'gpt-4o-mini'
 Gemini_Model_1_5 = 'gemini-1.5-flash-002'
 LLAMA_3_2_11B = 'meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo'
 LLAMA_3_1_8B = 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo'
+LLAMA_3_2_3B = 'meta-llama/Llama-3.2-3B-Instruct-Turbo'
 CLAUDE_3_5 = 'claude-3-5-sonnet-20240620'
 
 def get_gpt_model(model_name: str = OpenAI_Model_4o_mini, temperature: float = 0.75,

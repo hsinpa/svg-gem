@@ -6,17 +6,19 @@ from svg_gem.feature.agent_interface import GraphAgent
 from svg_gem.feature.svg.svg_prompt import USER_INPUT_GRAMMAR_SYSTEM_PROMPT, SVG_RENDER_SYSTEM_PROMPT, \
     SVG_RENDER_HUMAN_PROMPT
 from svg_gem.feature.svg.svg_type import SVGGraphState
+from svg_gem.model.Image_model import GenerateSVGInputType
 from utility.langchain_helper.simple_factory_type import SocketEvent
 from utility.langchain_helper.simple_prompt_factory import SimplePromptFactory
 from utility.langchain_helper.simple_prompt_streamer import SimplePromptStreamer
-from utility.llm_model import get_together_model, LLAMA_3_1_8B, get_antropic_model
+from utility.llm_model import get_together_model, LLAMA_3_1_8B, get_antropic_model, LLAMA_3_2_3B
 from utility.utility_func import parse_xml
 from utility.websocket.websocket_manager import WebSocketManager
 
 
 class SVGAgent(GraphAgent):
 
-    def __init__(self, websocket_manager: WebSocketManager):
+    def __init__(self, user_input: GenerateSVGInputType, websocket_manager: WebSocketManager):
+        self._user_input = user_input
         self._websocket_manager = websocket_manager
 
     async def _fine_tune_user_input_chain(self, state: SVGGraphState):
@@ -34,7 +36,10 @@ class SVGAgent(GraphAgent):
 
 
     async def _output_svg_chain(self, state: SVGGraphState):
-        prompt_factory = SimplePromptFactory(llm_model=get_antropic_model())
+        prompt_factory = SimplePromptFactory(
+            # llm_model=get_antropic_model()
+            llm_model=get_together_model(model_name=LLAMA_3_2_3B)
+        )
 
         chain = prompt_factory.create_chain(
             output_parser=StrOutputParser(),
@@ -43,7 +48,8 @@ class SVGAgent(GraphAgent):
             partial_variables={'description': state['fine_user_description']}
         ).with_config({"run_name": 'output svg chain'})
 
-        simple_streamer = SimplePromptStreamer(websocket_manager=self._websocket_manager, session_id='', socket_id='', event_tag=SocketEvent.bot)
+        simple_streamer = SimplePromptStreamer(websocket_manager=self._websocket_manager, session_id=self._user_input.session_id,
+                                               socket_id=self._user_input.socket_id, event_tag=SocketEvent.bot)
 
         result = await simple_streamer.execute(chain=chain)
 
