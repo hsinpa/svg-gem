@@ -282,6 +282,8 @@ urllib3==2.2.3
     # via requests
 uvicorn==0.32.0
     # via svg-gem
+websockets==13.1
+    # via svg-gem
 wrapt==1.16.0
     # via langfuse
 yarl==1.15.5

@@ -1,7 +1,7 @@
 from svg_gem.feature.svg.svg_agent import SVGAgent
 from langfuse.callback import CallbackHandler
 
-from svg_gem.model.ImageModel import GenerateSVGInputType
+from svg_gem.model.Image_model import GenerateSVGInputType
 from utility.websocket.websocket_manager import WebSocketManager
 
 
