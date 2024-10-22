@@ -41,9 +41,6 @@ charset-normalizer==3.4.0
     # via requests
 click==8.1.7
     # via uvicorn
-colorama==0.4.6
-    # via click
-    # via tqdm
 defusedxml==0.7.1
     # via langchain-anthropic
 distro==1.9.0
@@ -61,6 +58,7 @@ frozenlist==1.4.1
 fsspec==2024.9.0
     # via huggingface-hub
 google-api-core==2.21.0
+    # via google-api-core
     # via google-cloud-aiplatform
     # via google-cloud-bigquery
     # via google-cloud-core
@@ -95,8 +93,6 @@ googleapis-common-protos==1.65.0
     # via google-api-core
     # via grpc-google-iam-v1
     # via grpcio-status
-greenlet==3.1.1
-    # via sqlalchemy
 grpc-google-iam-v1==0.13.1
     # via google-cloud-resource-manager
 grpcio==1.67.0
