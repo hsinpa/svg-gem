@@ -11,7 +11,7 @@ class SVGManager:
         self._websocket_manager = websocket_manager
 
     async def execute_pipeline(self):
-        agent = SVGAgent(self._websocket_manager)
+        agent = SVGAgent(self._user_input, self._websocket_manager)
         compile_graph = agent.create_graph()
 
         r = await compile_graph.ainvoke({'raw_user_input': self._user_input.user_input},
