@@ -4,7 +4,7 @@ from langgraph.graph import StateGraph
 
 from svg_gem.feature.agent_interface import GraphAgent
 from svg_gem.feature.svg.svg_prompt import USER_INPUT_GRAMMAR_SYSTEM_PROMPT, SVG_RENDER_SYSTEM_PROMPT, \
-    SVG_RENDER_HUMAN_PROMPT
+    SVG_RENDER_HUMAN_PROMPT, USER_INPUT_GRAMMAR_HUMAN_PROMPT
 from svg_gem.feature.svg.svg_type import SVGGraphState
 from svg_gem.model.Image_model import GenerateSVGInputType
 from utility.langchain_helper.simple_factory_type import SocketEvent
@@ -27,8 +27,9 @@ class SVGAgent(GraphAgent):
         chain = prompt_factory.create_chain(
             output_parser=StrOutputParser(),
             system_prompt_text=USER_INPUT_GRAMMAR_SYSTEM_PROMPT,
-            human_prompt_text=state['raw_user_input'],
-        ).with_config({"run_name": 'Long term plan'})
+            human_prompt_text=USER_INPUT_GRAMMAR_HUMAN_PROMPT,
+            partial_variables={'user_input': state['raw_user_input']}
+        ).with_config({"run_name": 'Rewrite user input'})
 
         r = await chain.ainvoke({})
 
